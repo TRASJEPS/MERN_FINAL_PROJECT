@@ -4,12 +4,12 @@ import { Link, navigate } from '@reach/router';
 import CurrencyInput from 'react-currency-input-field';
 
 const NewSkiff = (props) => {
-    const [ buildComplete, setBuildComplete ] = useState(false); //PEG LEG
-    const [ eyePatch, setEyePatch ] = useState(false);
-    const [ hookHand, setHookHand ] = useState(false);
+    const [ buildComplete, setBuildComplete ] = useState(true); //PEG LEG
+    const [ eyePatch, setEyePatch ] = useState(true);
+    const [ hookHand, setHookHand ] = useState(true);
     const [ ownerName, setOwnerName ] = useState("");
     const [ builderName, setBuilderName ] = useState("");
-    const [ modelName, setModelName ] = useState("Standard");  //AUTOMATICALLY STARTS AS STANDARD IN THIS CASE
+    const [ modelName, setModelName ] = useState("Crew Mate");  //AUTOMATICALLY STARTS AS STANDARD IN THIS CASE
     const [ startDate, setStartDate ] = useState("");
     const [ stockLength, setStockLength ] = useState("");  // PLAY WITH NUMBERS 
     const [ customLength, setCustomLength ] = useState(""); // SET AS A NUMBER BUT USE AN EMPTY STRING SO CONSOLE PLAYS NICE
@@ -337,17 +337,17 @@ return (
             </div>
             <div>
                 <label>Peg Leg</label>
-                <input style={inputTextPadding} type="checkbox" name="buildComplete" checked onBlur={(event) => setBuildComplete( buildComplete )}></input>
+                <input style={inputTextPadding} type="checkbox" name="buildComplete" defaultChecked="true" onChange={(event) => setBuildComplete( buildComplete )}></input>
                 { errs.buildComplete? <span style={errorAlert}> { errs.buildComplete.message }</span> : null }
             </div>
             <div>
                 <label>Eye Patch</label>
-                <input style={inputTextPadding} type="checkbox" name="eyePatch" checked onBlur={(event) => setEyePatch( eyePatch )}></input>
+                <input style={inputTextPadding} type="checkbox" name="eyePatch" defaultChecked="true" onChange={(event) => setEyePatch( eyePatch )}></input>
                 { errs.eyePatch? <span style={errorAlert}> { errs.eyePatch.message }</span> : null }
             </div>
             <div>
                 <label>Hook Hand</label>
-                <input style={inputTextPadding} type="checkbox" name="buildComplete" checked onBlur={(event) => setHookHand( hookHand )}></input>
+                <input style={inputTextPadding} type="checkbox" name="buildComplete" defaultChecked="true" onChange={(event) => setHookHand( hookHand )}></input>
                 { errs.hookHand? <span style={errorAlert}> { errs.hookHand.message }</span> : null }
             </div>
             <div>

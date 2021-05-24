@@ -3,16 +3,16 @@ import axios from 'axios';
 import { Link, navigate } from '@reach/router';
 import CurrencyInput from 'react-currency-input-field';
 
-//AXIOS UPDATE
 const EditSkiff = (props) => {
-    //THIS must be called id because thats how its linked in APP.JS
-    //THIS also links into the front end, DESCTURCUTING
+    
     const { id } = props;
     // THIS IS IMPORTANT, it takes in the props from creating the new skiff 
     const [ buildComplete, setBuildComplete ] = useState(false);
+    const [ eyePatch, setEyePatch ] = useState(false);
+    const [ hookHand, setHookHand ] = useState(false);
     const [ ownerName, setOwnerName ] = useState("");
     const [ builderName, setBuilderName ] = useState("");
-    const [ modelName, setModelName ] = useState("Standard");  //AUTOMATICALLY STARTS AS STANDARD IN THIS CASE
+    const [ modelName, setModelName ] = useState("Crew Mate");  //AUTOMATICALLY STARTS AS STANDARD IN THIS CASE
     const [ startDate, setStartDate ] = useState("");
     const [ stockLength, setStockLength ] = useState("");  // PLAY WITH NUMBERS 
     const [ customLength, setCustomLength ] = useState(""); // SET AS A NUMBER BUT USE AN EMPTY STRING SO CONSOLE PLAYS NICE
@@ -20,21 +20,10 @@ const EditSkiff = (props) => {
     const [ description, setDescription ] = useState("");
     const [errs, setErrs ] = useState({});
 
-    //FOR DATES conversion FUNCTION
-    //MUST CONVERT TO YYYY-MM-DD
     const editingDateFormatter = incomingDate => {
         console.log(incomingDate);
         
-        return incomingDate.split("T")[0];  // SPLITS UP TO THE first element of that string's character, then LOGS the split to the first slot in array in this case slot 0
-
-
-        // CHECK DATE IN
-        // console.log(incomingDate);
-        // let year = incomingDate.getFullYear();
-        // let month = String (incomingDate.getMonth()+1).padStart(2,'0');  //BECUASE ITS AN ARRAY!!! starts at zero // THIS MAKES IT SO THE DAMN MONTH is formatted 'mm'
-        // let day = String (incomingDate.getDate()+1).padStart(2,'0');  //BECUASE ITS AN ARRAY!!! starts at zero // THIS MAKES IT SO THE DAMN DAY is formatted 'dd'
-        // console.log(`${year}-${month}-${day}`);
-        // return `${year}-${month}-${day}`;
+        return incomingDate.split("T")[0];
     };
 
 useEffect(() => {
@@ -44,21 +33,12 @@ useEffect(() => {
             const editOneSkiff = response.data;
             console.log(editOneSkiff);
             setBuildComplete(editOneSkiff.buildComplete);
+            setEyePatch(editOneSkiff.eyePatch);
+            setHookHand(editOneSkiff.hookHand);
             setOwnerName(editOneSkiff.ownerName);
             setBuilderName(editOneSkiff.builderName);
             setModelName(editOneSkiff.modelName);
-
-            // setStartDate((new Date(editOneSkiff.startDate)).toLocaleDateString("en_US"));   // TRY THIS!!!
-            //
-
-            // setStartDate((new Date(editOneSkiff.startDate)).toLocaleDateString("en_US")); 
-            // IMPLIMENTS THE DATE FORMATIING FUNCTION AND CLEANS UP ENTRY  
-
-            // setStartDate(editingDateFormatter(new Date(editOneSkiff.startDate)));   
-            // setFinishDate(editingDateFormatter(new Date(editOneSkiff.finishDate)));
             setStartDate(editingDateFormatter(editOneSkiff.startDate)); 
-            
-
             setStockLength(editOneSkiff.stockLength);
             setCustomLength(editOneSkiff.customLength);
             setPictureUrl(editOneSkiff.pictureUrl);  // DOESNT ERROR OUT IF NO PIC FOUND
@@ -75,11 +55,12 @@ const submitForm = (event) => {
         .put("http://localhost:7777/api/skiffs/" + id,     //THIS IS IN THE skiffs.route.js BACKEND PATH
    {
     buildComplete: buildComplete,
+    eyePatch: eyePatch,
+    hookHand: hookHand,
     ownerName: ownerName,
     builderName: builderName,
     modelName: modelName,
     startDate: startDate, 
-
     stockLength: stockLength,  //ALLOWS FOR THE / to be entered 
     customLength: customLength, 
     pictureUrl: pictureUrl,
@@ -255,101 +236,150 @@ const successAlertLength =
             marginLeft: "10px",
             border: "2px solid rgb(192, 220, 191)",
         };
+        const titleAligner = {
+            display: "inline-block",
+            fontSize: "50px",
+            marginLeft: "40px",
+        };
+const addNewHeader = 
+        {
+            width: "42%",
+            // height: "40%",
+            display: "inline-block",
+            margin: "4px",
+            marginBottom: "7px",
+            // marginRight: "11px",
+            padding: "15px",
+            //textAlign: "left",
+            background: "rgb(224, 240, 255)",
+            paddingBottom: "20px"
+        };
+const largeButtonStyle = 
+        {
+            margin: "5px",
+            // marginLeft: "5px",
+            // marginRight: "5px",
+            marginTop: "5px",
+            paddingTop: "10px",
+            paddingBottom: "10px",
+            paddingLeft: "20px",
+            paddingRight: "20px",
+            background: "rgb(27, 36, 87)",
+            color: "white",
+            fontWeight: "bolder",
+            fontSize: "large",
+            border: "2px solid darkblue",
+            borderRadius: "15px",
+        };
 
  return(
 
 // REMEMBER TO SETUP THE CATCH like on ONE SKIFF
 // MUST BE FROM onBlur TO onChange
     <div>
-        <h2>Edit Yacht</h2>
+        <h2>Edit {ownerName} Pirate Profile</h2>
         <form onSubmit={submitForm}>
-        <div>
-                <label>Owner Name</label>
+            <div>
+                <label>Pirate Name</label>
                 <input style={inputTextPadding} type="text" name="ownerName" value={ownerName} onChange={(event) => setOwnerName(event.target.value)}></input>
                 { ownerName.length == 0 ? null 
-                    : ownerName.length < 3 ? <span className="fadeInErrors" style={errorAlert}>Please enter a name longer than 3 characters.</span>
-                        : ownerName.length > 50 ? <span className="fadeInErrors" style={errorAlert}>Your name is longer than 50 characters.  Please enter a shorter name. </span>
+                    : ownerName.length < 3 ? <span className="fadeInErrors" style={errorAlert}>ARG! Please do be entern' a name longer than 3 characters.</span>
+                        : ownerName.length > 50 ? <span className="fadeInErrors" style={errorAlert}>ARG! Ye name be too long to say! Please be entern' a name shorter than 50 characters!</span>
                             : <p className="fadeIn" style={successAlert}>&#10003;</p> }
                 { errs.ownerName? <span className="fadeInErrors" style={errorAlert}> { errs.ownerName.message }</span> : null }
             </div>
             <div>
-                <label>Builder Name</label>
-                <input style={inputTextPadding} type="text" name="builderName" value={builderName} onChange={(event) => setBuilderName(event.target.value)}></input>
-                { builderName.length == 0 ? null 
-                    : builderName.length < 3 ? <span className="fadeInErrors" style={errorAlert}>Please enter a builder name longer than 3 characters.</span>
-                        : builderName.length > 50 ? <span className="fadeInErrors" style={errorAlert}>Your builder name is longer than 50 characters.  Please enter a shorter name. </span>
-                            : <p className="fadeIn" style={successAlert}>&#10003;</p> }
-                { errs.builderName? <span className="fadeInErrors" style={errorAlert}> { errs.builderName.message }</span> : null }
-            </div>
-            <div>
-                <label>Select Model Type</label>
-                <select style={inputTextPadding} type="text" name="modelName" value={modelName} onChange={(event) => setModelName(event.target.value)}>
-                    <option value="Standard">Standard</option>
-                    <option value="Wide Body">Wide Body</option>
-                    <option value="Jumbo">Jumbo</option>
-                    <option value="Flat Bottom">Flat Bottom</option>
-                </select>
-                { errs.modelName? <span className="fadeInErrors" style={errorAlert}> { errs.modelName.message }</span> : null }
-            </div>
-            <div>
-                <label>Build Start Date</label>
-                <input style={inputTextPadding} type="date" name="startDate" value={startDate} onChange={(event) => setStartDate(event.target.value)}></input>
-                { startDate.length == 0 ? null 
-                    : <p className="elementToFadeInAndOut" style={enterAlert}>Date selected...</p>}
-                { errs.startDate? <span className="fadeInErrors" style={errorAlert}> { errs.startDate.message }</span> : null }
-            </div>
-            <div className="theTroubleShooter">
-                <div className="fontAlignmentPal">
-                    <label>Boat Cost</label>
-                    <div id="smallFont">{"Value in Dollars & Cents"}</div>
-                </div>
-                {/* <CurrencyInput style={inputTextPadding} prefix="$" decimalsLimit={2} decimalScale={2} name="stockLength" onBlur={(event) => setStockLength(event.target.value)}/> */}
-                <CurrencyInput style={inputTextPadding} prefix="$" decimalsLimit={2} decimalScale={2} name="stockLength" value={stockLength} 
-                onValueChange={
-                    (value) => setStockLength(value)
-                    // (event) => setStockLength(event.target.value.replace(/[^0-9.-]+/g,""))
-                    }/>
-
-                { stockLength == 0 ? null 
-                    : stockLength < 150000 ? <span className="fadeInErrors" style={errorAlert}>Your yacht will cost at least $150,000.</span>
-                                : <p className="fadeInLengths" style={successAlertLength}>&#10003;</p> }
-                { errs.stockLength? <span className="fadeInErrors" style={errorAlert}> { errs.stockLength.message }</span> : null }
-            </div>
-            <div className="theTroubleShooter">
-                <div className="fontAlignmentPal">
-                    <label>Custom Length in Feet</label>
-                    <div id="smallFont">Between 50-350'</div>
-                </div>
-                <input style={inputTextPadding} type="number" name="customLength" value={customLength} onChange={(event) => setCustomLength(event.target.value)}></input>
-                { customLength == 0 ? null 
-                    : customLength < 50 ? <span className="fadeInErrors" style={errorAlert}>Please enter a custom length longer than 50 feet.</span>
-                        : customLength > 350 ? <span className="fadeInErrors" style={errorAlert}>Please enter a custom length shorter than 350 feet.</span>
-                            : <span className="fadeInLengths" style={successAlertLength}>&#10003;</span> }
-                { errs.customLength? <span className="fadeInErrors" style={errorAlert}> { errs.customLength.message }</span> : null }
-            </div>
-            <div>
-                <label>Photo Link</label>
+                <label>Ye Pirate Photo URL</label>
                 <input style={inputTextPadding} type="text" name="pictureUrl" value={pictureUrl} onChange={(event) => setPictureUrl(event.target.value)}></input>
                 { pictureUrl.length == 0 ? null 
                     : <p className="fadeIn" style={successAlert}>&#10003;</p> }
                 { errs.pictureUrl? <span style={errorAlert}> { errs.pictureUrl.message }</span> : null }
             </div>
+            <div className="theTroubleShooter">
+                <div className="fontAlignmentPal">
+                    <label>Treasure Chests Found</label>
+                    <div id="smallFont">Between 0-999 chests.</div>
+                </div>
+                <input style={inputTextPadding} type="number" name="customLength" value={customLength} onChange={(event) => setCustomLength(event.target.value)}></input>
+                { customLength == 0 ? null 
+                    : customLength < 0 ? <span className="fadeInErrors" style={errorAlert}>ARG! Ye cannot be in Davy Jones dept when joining me crew!</span>
+                        : customLength > 999 ? <span className="fadeInErrors" style={errorAlert}>ARG! Ye vast wealth will sink me ship! Best leave ye fortune behind! No more than 999 treasure chests.</span>
+                            : <span className="fadeInLengths" style={successAlertLength}>&#10003;</span> }
+                { errs.customLength? <span className="fadeInErrors" style={errorAlert}> { errs.customLength.message }</span> : null }
+            </div>
+            <div>
+                <label>Catch Phrase</label>
+                <input style={inputTextPadding} type="text" name="builderName" value={builderName} onChange={(event) => setBuilderName(event.target.value)}></input>
+                { builderName.length == 0 ? null 
+                    : builderName.length < 2 ? <span className="fadeInErrors" style={errorAlert}>ARG! Ye catch phrase must be longer than 2 characters matey!</span>
+                        : builderName.length > 50 ? <span className="fadeInErrors" style={errorAlert}>YARG! Ye saying be too long! Please be sayin' a shorter sayn'! Less than 50 characters.</span>
+                            : <p className="fadeIn" style={successAlert}>&#10003;</p> }
+                { errs.builderName? <span className="fadeInErrors" style={errorAlert}> { errs.builderName.message }</span> : null }
+            </div>
+            <div>
+                <label>Crew Member Since</label>
+                <input style={inputTextPadding} type="date" name="startDate" value={startDate} onChange={(event) => setStartDate(event.target.value)}></input>
+                { startDate.length == 0 ? null 
+                    : <p className="elementToFadeInAndOut" style={enterAlert}>Ye Start Date Be Selected.</p>}
+                { errs.startDate? <span className="fadeInErrors" style={errorAlert}> { errs.startDate.message }</span> : null }
+            </div>
+            <div>
+                <label>Crewmate Role</label>
+                <select style={inputTextPadding} type="text" name="modelName" value={modelName} onChange={(event) => setModelName(event.target.value)}>
+                    <option value="Crew Mate">Crew Mate</option>
+                    <option value="Cook">Cook</option>
+                    <option value="Deckhand">Deckhand</option>
+                    <option value="Boatswain">Boatswain</option>
+                    <option value="Powder Monkey">Powder Monkey</option>
+                    <option value="Quarter Master">Quarter Master</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="Navigator">Navigator</option>
+                    <option value="First Mate">First Mate</option>
+                    <option value="Captain">Captain</option>
+                </select>
+                { errs.modelName? <span className="fadeInErrors" style={errorAlert}> { errs.modelName.message }</span> : null }
+            </div>
+            <div className="theTroubleShooter">
+                <div className="fontAlignmentPal">
+                    <label>Desired Annual Wage</label>
+                    <div id="smallFont">{"Enter Ye Wages in Continentals."}</div>
+                </div>
+                <CurrencyInput style={inputTextPadding} prefix="$" decimalsLimit={2} decimalScale={2} name="stockLength" value={stockLength} 
+                onValueChange={
+                    (value) => setStockLength(value)
+                    }/>
+                { stockLength == 0 ? null 
+                    : stockLength < 100 ? <span className="fadeInErrors" style={errorAlert}>ARG! No member of me crew earns less than a 100 Continentals.</span>
+                        : stockLength > 999999 ? <span className="fadeInErrors" style={errorAlert}>ARRRGGGGG! YE GREED IS TOO MUCH. BEST BE LOWERN' YE WAGE.</span>
+                                : <p className="fadeInLengths" style={successAlertLength}>&#10003;</p> }
+                { errs.stockLength? <span className="fadeInErrors" style={errorAlert}> { errs.stockLength.message }</span> : null }
+            </div>
             <div>
                 <div style={inputPadDesc}><label >Description:</label></div>
                 <textarea style={textAreaPadding} type="text" name="description" value={description} rows={100} onChange={(event) => setDescription(event.target.value)}></textarea>
                 { description.length == 0 ? null 
-                    : description.length < 6 ? <span className="fadeInErrors" style={errorAlert}>Please enter description longer than 6 characters.</span>
-                        : description.length > 500 ? <span className="fadeInErrors" style={errorAlert}>Please enter a shorter description. </span>
+                    // : description.length < 6 ? <span className="fadeInErrors" style={errorAlert}>Please enter description longer than 6 characters.</span>
+                        : description.length > 500 ? <span className="fadeInErrors" style={errorAlert}>ARG! Ye talk too much.  Best be keeping it below 500 characters.</span>
                             : <p className="fadeIn" style={successAlert}>&#10003;</p> }
                 { errs.description? <span style={errorAlert}> { errs.description.message }</span> : null }
             </div>
             <div>
-                <label>Build Complete</label>
+                <label>Peg Leg</label>
                 <input style={inputTextPadding} type="checkbox" name="buildComplete" checked={buildComplete} onChange={(event) => setBuildComplete( !buildComplete )}></input>  {/*SET OPPOSITE TO MAKE IT MAKES IT AUTO FALSE */}
                 { errs.buildComplete? <span style={errorAlert}> { errs.buildComplete.message }</span> : null }
             </div>
-            <button style={buttonStyle} type="submit">Update Yacht Details</button>
-            <button style={buttonStyle} onClick={() => navigate(-1)}>Cancel Changes</button>
+            <div>
+                <label>Eye Patch</label>
+                <input style={inputTextPadding} type="checkbox" name="eyePatch" checked={eyePatch} onChange={(event) => setEyePatch( !eyePatch )}></input>  {/*SET OPPOSITE TO MAKE IT MAKES IT AUTO FALSE */}
+                { errs.eyePatch? <span style={errorAlert}> { errs.eyePatch.message }</span> : null }
+            </div>
+            <div>
+                <label>Hook Hand</label>
+                <input style={inputTextPadding} type="checkbox" name="hookHand" checked={hookHand} onChange={(event) => setHookHand( !hookHand )}></input>  {/*SET OPPOSITE TO MAKE IT MAKES IT AUTO FALSE */}
+                { errs.hookHand? <span style={errorAlert}> { errs.hookHand.message }</span> : null }
+            </div>
+            <button style={buttonStyle} type="submit">Update Ye Pirate Details</button>
+            <button style={buttonStyle} onClick={() => navigate(-1)}>Cancel Thar Here Changes</button>
         </form>
         
     </div>
