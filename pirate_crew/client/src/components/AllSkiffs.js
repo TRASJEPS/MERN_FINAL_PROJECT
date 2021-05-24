@@ -20,13 +20,11 @@ const AllSkiffs = (props) => {
     },[]);
 
     const deleteSkiff = (skiffToDelete) => {
-        //skiffToDelete is the passed in OBJECT
+        
         axios
-            //DONT FORGET THE END SLASHHHHHH!H!H!H!H!H! /////
             .delete('http://localhost:7777/api/skiffs/' + skiffToDelete._id )
             .then( response => {
-                // ${skiff.ownerName}'s ${skiff.modelName}  THIS ONLY DELETES STATE BUT WITH AXIOS is goes buh-bye
-                console.log(skiffToDelete.ownerName+"'s "+ skiffToDelete.modelName + " Skiff - has been deleted.  The ID was " + skiffToDelete._id);
+                console.log("Pirate "+skiffToDelete.ownerName+" "+ skiffToDelete.modelName + "  has been walked the plank!  The ID was " + skiffToDelete._id);
                 // filter callback function is going through the skiff array
                 const newSkiffsArray = allSkiffs.filter((skiff) => {
                     //MAKE SURE TO COMPARE THE ._id for specifics NOT the OBJECT
@@ -105,7 +103,7 @@ const AllSkiffs = (props) => {
             margin: "5px",
             // marginLeft: "5px",
             // marginRight: "5px",
-            marginTop: "15px",
+            marginTop: "5px",
             paddingTop: "10px",
             paddingBottom: "10px",
             paddingLeft: "20px",
@@ -134,15 +132,13 @@ const AllSkiffs = (props) => {
     };
     const addNewHeader = 
     {
-        border: "4px solid rgb(176, 217, 255)",
-        borderRadius: "20px",
         width: "42%",
         // height: "40%",
         display: "inline-block",
-        margin: "40px",
+        margin: "4px",
         marginBottom: "7px",
         // marginRight: "11px",
-        padding: "25px",
+        padding: "15px",
         //textAlign: "left",
         background: "rgb(224, 240, 255)",
         paddingBottom: "20px"
@@ -152,21 +148,25 @@ const AllSkiffs = (props) => {
         display: "flex",
         flexWrap: "wrap",
     };
+    const titleAligner = {
+        display: "inline-block",
+        fontSize: "70px",
+        marginLeft: "40px",
+    };
 
     return( 
     <div>
        
-        <h1 style={titleHeader}>All Pirate Crew Mates</h1>
+        <div style={titleHeader}>
+            <h1 style={titleAligner}>All Pirate Crew Mates</h1>
+            <div style={addNewHeader}>
+                <p>Avast ye!  Add new pirates to ye crew here.</p>
+                <button style={largeButtonStyle} onClick={() => navigate(`/skiff/new`)}>Add New Crew Member</button>
+            </div>
+        </div>
 
         <p>{props.alert}</p>
 
-        <div style={addNewHeader}>
-            <p>Avast ye!  Add new pirates to ye crew here.</p>
-            <button style={largeButtonStyle} onClick={() => navigate(`/skiff/new`)}>Add New Crew Member</button>
-        </div>
-        
-        {/* SKIFF is an object  */}
-        {/* <div style={scaleFlex}> */}
             {allSkiffs.map((skiff, index) => (
                 <div style={skiffContainer}> 
                     <h4 style={mainNameContainer}>{`${skiff.ownerName}'s ${skiff.modelName} Yacht`}</h4>

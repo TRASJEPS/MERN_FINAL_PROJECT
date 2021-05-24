@@ -4,8 +4,8 @@ var Float = require('mongoose-float').loadType(mongoose);
 const TolmanSkiffSchema = new mongoose.Schema({
     ownerName: {    
         type: String,
-        required: [true, "Please enter the owner's name."], 
-        minLength: [3, "Your owner name must be at least 3 characters long."],
+        required: [true, "ARG! Ye pirate must be havn' a name."], 
+        minLength: [2, "ARG! Ye pirate's name must be havn' more than 2 characters."],
     }, 
 
     builderName: {    
@@ -64,5 +64,4 @@ const TolmanSkiffSchema = new mongoose.Schema({
 
 }, { timestamps: true })
 
-//set as Pirate
 module.exports = mongoose.model("Skiff", TolmanSkiffSchema);   
