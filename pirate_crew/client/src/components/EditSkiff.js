@@ -14,7 +14,6 @@ const EditSkiff = (props) => {
     const [ builderName, setBuilderName ] = useState("");
     const [ modelName, setModelName ] = useState("Standard");  //AUTOMATICALLY STARTS AS STANDARD IN THIS CASE
     const [ startDate, setStartDate ] = useState("");
-    const [ finishDate, setFinishDate ] = useState("");
     const [ stockLength, setStockLength ] = useState("");  // PLAY WITH NUMBERS 
     const [ customLength, setCustomLength ] = useState(""); // SET AS A NUMBER BUT USE AN EMPTY STRING SO CONSOLE PLAYS NICE
     const [ pictureUrl, setPictureUrl ] = useState("");
@@ -58,7 +57,7 @@ useEffect(() => {
             // setStartDate(editingDateFormatter(new Date(editOneSkiff.startDate)));   
             // setFinishDate(editingDateFormatter(new Date(editOneSkiff.finishDate)));
             setStartDate(editingDateFormatter(editOneSkiff.startDate)); 
-            setFinishDate(editingDateFormatter(editOneSkiff.finishDate));
+            
 
             setStockLength(editOneSkiff.stockLength);
             setCustomLength(editOneSkiff.customLength);
@@ -80,7 +79,7 @@ const submitForm = (event) => {
     builderName: builderName,
     modelName: modelName,
     startDate: startDate, 
-    finishDate: finishDate,
+
     stockLength: stockLength,  //ALLOWS FOR THE / to be entered 
     customLength: customLength, 
     pictureUrl: pictureUrl,
@@ -299,16 +298,6 @@ const successAlertLength =
                     : <p className="elementToFadeInAndOut" style={enterAlert}>Date selected...</p>}
                 { errs.startDate? <span className="fadeInErrors" style={errorAlert}> { errs.startDate.message }</span> : null }
             </div>
-            <div>
-                <label>Build Finish Date</label>
-                <input style={inputTextPadding} type="date" name="finishDate" value={finishDate} onChange={(event) => setFinishDate(event.target.value)}></input>
-                { finishDate.length == 0 ? null 
-                    : <p className="elementToFadeInAndOut" style={enterAlert}>Date selected...</p> }
-                { errs.finishDate? <span className="fadeInErrors" style={errorAlert}> { errs.finishDate.message }</span> : null }
-            </div>
-
-
-
             <div className="theTroubleShooter">
                 <div className="fontAlignmentPal">
                     <label>Boat Cost</label>
@@ -326,7 +315,6 @@ const successAlertLength =
                                 : <p className="fadeInLengths" style={successAlertLength}>&#10003;</p> }
                 { errs.stockLength? <span className="fadeInErrors" style={errorAlert}> { errs.stockLength.message }</span> : null }
             </div>
-
             <div className="theTroubleShooter">
                 <div className="fontAlignmentPal">
                     <label>Custom Length in Feet</label>

@@ -45,7 +45,7 @@ const AllSkiffs = (props) => {
         display: "inline-block",
         width: "26%",
         height: "40%",
-        margin: "10px",
+        margin: "20px",
         flex: 20, // KEEP 1 for small sec
         fontWeight: "bold",
         paddingLeft: "25px",
@@ -74,7 +74,7 @@ const AllSkiffs = (props) => {
         border: "4px solid rgb(176, 217, 255)",
         width: "100px",
         height: "100px",
-        borderRadius: "25px",
+        // borderRadius: "25px",
         display: "inline-block",
         margin: "10px",
         padding: "5px",
@@ -96,6 +96,23 @@ const AllSkiffs = (props) => {
             fontWeight: "bolder",
             fontSize: "small",
             border: "2px solid darkblue",
+            borderRadius: "10px",
+        };
+        const walkThePlank = 
+        {
+            margin: "5px",
+            // marginLeft: "5px",
+            // marginRight: "5px",
+            marginTop: "15px",
+            paddingTop: "5px",
+            paddingBottom: "5px",
+            paddingLeft: "10px",
+            paddingRight: "10px",
+            background: "darkred",
+            color: "white",
+            fontWeight: "bolder",
+            fontSize: "small",
+            border: "2px solid darkred",
             borderRadius: "10px",
         };
     const largeButtonStyle = 
@@ -169,18 +186,18 @@ const AllSkiffs = (props) => {
 
             {allSkiffs.map((skiff, index) => (
                 <div style={skiffContainer}> 
-                    <h4 style={mainNameContainer}>{`${skiff.ownerName}'s ${skiff.modelName} Yacht`}</h4>
+                    <h4 style={mainNameContainer}>{skiff.ownerName}</h4>
                     <br></br>
-                    <img style={picPreviewSizer} src={ skiff.pictureUrl} />    {/* ADD IMG CONTAINER HERE */}
+                    <img style={picPreviewSizer} src={skiff.pictureUrl}/>
                     <p key></p>
-                    <p>{`Built by: ${skiff.builderName}`}</p>
-                    <p> {`Cost: ${formatCurrency(skiff.stockLength)}`}</p>
-                    <p>{`Custom Length: ${skiff.customLength}'`}</p>
+                    <p>{`Catch Phrase: ${skiff.builderName}`}</p>
+                    <p>{`Annual Wage: ${formatCurrency(skiff.stockLength)}`}</p>
+                    <p>{`Treasure Chests Found: ${skiff.customLength}'`}</p>
                     <p>{`Description: ${skiff.description}`}</p>
-                    <p id="smallFont">{`Date Added: ${skiff.createdAt.substring(5,10)}-${skiff.createdAt.substring(0,4)}`}</p>
-                    <button style={buttonStyle} onClick={() => navigate(`/skiff/${skiff._id}`)}>Details</button>
+                    <p id="smallFont">{`Crew Member Since: ${skiff.createdAt.substring(5,10)}-${skiff.createdAt.substring(0,4)}`}</p>
+                    <button style={buttonStyle} onClick={() => navigate(`/skiff/${skiff._id}`)}>Pirate Details</button>
                     <button style={buttonStyle} onClick={() => navigate(`/skiff/${skiff._id}/edit`)}>Edit</button>
-                    <button style={buttonStyle} onClick={() => deleteSkiff(skiff)}>Delete</button>
+                    <button style={walkThePlank} onClick={() => deleteSkiff(skiff)}>Walk The Plank!</button>
                 </div>
             ))}
         {/* </div> */}

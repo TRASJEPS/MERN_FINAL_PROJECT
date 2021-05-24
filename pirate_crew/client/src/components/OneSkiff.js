@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { link, navigate } from '@reach/router';
-// import { formatValue } from 'react-currency-input-field';   //THIS IS NOT NEEDED ANY MORE BECAUSE OF CURRENCY FUNCTION
-// THIS FORMATS ALL CURRENCY USE ON ALL PAGES 
 import { formatCurrency } from '../utilities/CurrencyFormatter';
-
-// BACK BUTTON
-// import { withRouter } from 'react-router-dom';
-// import { useHistory } from "react-router-dom";   EDITING HERE
 
 const OneSkiff = (props) => {
     // THIS HAS TO BE CALLED id BECAUSE ITS DEFINED THERE IN THE APP.JS
@@ -53,7 +47,7 @@ const skiffContainer =
     border: "2px solid darkblue",
     borderRadius: "20px",
     display: "inline-block",
-    width: "26%",
+    width: "60%",
     margin: "10px",
     fontWeight: "bold",
     paddingLeft: "25px",
@@ -110,8 +104,21 @@ const titleHeader =
     // fontSize: "large",
     //textAlign: "left",
     background: "rgb(224, 240, 255)",
-    paddingBottom: "20px"
+    paddingBottom: "20px",
 };
+
+const picPreviewSizer = 
+    {
+        border: "4px solid rgb(176, 217, 255)",
+        width: "100px",
+        height: "100px",
+        // borderRadius: "25px",
+        display: "inline-block",
+        margin: "10px",
+        padding: "5px",
+        //textAlign: "left",
+        background: "rgb(224, 240, 255)",
+    };
 
 //DELETE METHOD IS HERE hidden for now XD
 {
@@ -139,7 +146,7 @@ const titleHeader =
 
  return(
     <div>
-        <h1>Yacht Profile Details</h1>
+        <h1>Pirate Profile Details</h1>
         {/* AT THIS POINT ITS THE WHOLE OBJECT OR NOTHING */}
         {/* MAKE SURE TO CHECK ITS NOT UNDEFINED  */}
         {/* USE THIS IF ITS ASYCRINOUS LOADING HURGGG */}
@@ -147,23 +154,23 @@ const titleHeader =
             skiff.ownerName !== undefined ? 
             (
             <div style={skiffContainer}> 
-                <h4 style={mainNameContainer}>{`${skiff.ownerName}'s ${skiff.modelName} Yacht`}</h4>
+                <h4 style={mainNameContainer}>{skiff.ownerName}</h4>
                 <br></br>
-                <img src={ skiff.pictureUrl} />    {/* ADD IMG CONTAINER HERE */}
-                <p>{`Built by: ${skiff.builderName}`}</p>
-                {/* <p> {`Cost: ${ moneyStyle }`}</p> */}
+                <img style={picPreviewSizer} src={ skiff.pictureUrl} />
+                <p>{`Catch Phrase: "${skiff.builderName}"`}</p>
+                <p> {`Crew Position: ${skiff.modelName}`}</p>
+                <p> {`Annual Wage: ${ formatCurrency(skiff.stockLength)} `}</p>
+                <p>{`Treasure Chests Found: ${skiff.customLength}`}</p>
+                <p>{`Crewmen Start Date: ${skiff.startDate.substring(5,10)}-${skiff.startDate.substring(0,4)}`}</p>
+                <p> {`Peg Leg: ${ skiff.buildComplete}`}</p>
+                <p> {`Eye Patch: ${ skiff.eyePatch}`}</p>
+                <p> {`Hook Hand: ${ skiff.hookHand}`}</p>
 
-                {/* <p> {`Cost: $${ skiff.stockLength }`}</p> */}
-                <p> {`Cost: ${ formatCurrency(skiff.stockLength)} `}</p>
-
-                <p>{`Custom Length: ${skiff.customLength}'`}</p>
-                <p>{`Build Start Date: ${skiff.startDate.substring(5,10)}-${skiff.startDate.substring(0,4)}`}</p>
-                <p>{`Build Completion Date: ${skiff.finishDate.substring(5,10)}-${skiff.finishDate.substring(0,4)}`}</p>
                 <p>{`Description: ${skiff.description}`}</p>
                 <p id="smallFont">{`Date Added: ${skiff.createdAt.substring(5,10)}-${skiff.createdAt.substring(0,4)}`}</p>
                 {/* <button style={buttonStyle} onClick={() => navigate(-1)}>Return</button> */}
-                <button style={buttonStyle} onClick={() => navigate(`/`)}>Return</button>
-                <button style={buttonStyle} onClick={() => navigate(`/skiff/${skiff._id}/edit`)}>Edit</button>
+                <button style={buttonStyle} onClick={() => navigate(`/`)}>View All Pirates</button>
+                <button style={buttonStyle} onClick={() => navigate(`/skiff/${skiff._id}/edit`)}>{`Edit ${skiff.ownerName} Profile`}</button>
                 {/* <button style={buttonStyle} onClick={() => deleteSkiff(skiff)}>Delete</button>     */}
             </div>
             ):
