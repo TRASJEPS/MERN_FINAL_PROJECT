@@ -13,7 +13,7 @@ function App() {
 const NotFound = () => {
     return (
       <div>
-        ERROR ROUTE NOT FOUND.  CHECK YOUR URL ENTRY.
+        AVAST!  ERROR ROUTE NOT FOUND.  CHECK YOUR URL ENTRY.
       </div>
     )
   };

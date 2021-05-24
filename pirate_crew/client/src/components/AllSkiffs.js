@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { link, navigate } from '@reach/router';
 import { formatValue } from 'react-currency-input-field';
-import { formatCurrency } from '../utilities/CurrencyFormatter';  //NOT EXPORT DEFAULT
+import { formatCurrency } from '../utilities/CurrencyFormatter';  
 
-
-// DEFINE THE PROPS and THEN YOU TAKE IT OUT OF PROPS
 const AllSkiffs = (props) => {
-    const [ allSkiffs, setAllSkiffs ] = useState([]);  // SETUP THE GETTER AND SETTER AND A EMPTY ARRAY!!!!!!!   THIS IS THE STATE
+    const [ allSkiffs, setAllSkiffs ] = useState([]);
 
     useEffect(() => {
         axios
@@ -21,10 +19,6 @@ const AllSkiffs = (props) => {
             });
     },[]);
 
-    // THIS IS THE DELETE BUTTON 
-    // USE skiff._id  
-    //  THE ROUTE! wooohhh
-    //  app.delete('/api/skiffs/:id', SkiffsController.delete);
     const deleteSkiff = (skiffToDelete) => {
         //skiffToDelete is the passed in OBJECT
         axios
@@ -159,32 +153,18 @@ const AllSkiffs = (props) => {
         flexWrap: "wrap",
     };
 
-
-    // CHECK PASSING OF PROPS TO SHOW NEW USER HAS BEEN CREATED OR WELCOME BACK MESSAGE AW SO CUTE.
     return( 
     <div>
-        {/* {
-            setConfirmNewUser ?
-            <h1 style={titleHeader}>Your new account has been created!</h1>
-            : null
-        } */}
-        <h1 style={titleHeader}>All Yachts</h1>
+       
+        <h1 style={titleHeader}>All Pirate Crew Mates</h1>
 
-
-{/* THIS IS WHERE ALL ALERTS WILL COME AFTER ALTERNATITING  */}
         <p>{props.alert}</p>
 
         <div style={addNewHeader}>
-            <p>Add a new yacht to the database here.</p>
-            <button style={largeButtonStyle} onClick={() => navigate(`/skiff/new`)}>Create New Yacht</button>
+            <p>Avast ye!  Add new pirates to ye crew here.</p>
+            <button style={largeButtonStyle} onClick={() => navigate(`/skiff/new`)}>Add New Crew Member</button>
         </div>
-        <div style={addNewHeader}>
-            {/* <p>{`Welcome ${user.firstName} ${user.lastName}`}</p> */}
-            <button style={largeButtonStyle} onClick={() => navigate(`/skiff/new`)}>View Your Profile</button>
-            <button style={largeButtonStyle} onClick={() => navigate(`/skiff/new`)}>Edit</button>
-            <button style={largeButtonStyle} onClick={() => navigate(`/skiff/new`)}>Log Out</button>
-        </div>
-
+        
         {/* SKIFF is an object  */}
         {/* <div style={scaleFlex}> */}
             {allSkiffs.map((skiff, index) => (
