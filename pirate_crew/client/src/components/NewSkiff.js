@@ -335,19 +335,22 @@ return (
                                 : <p className="fadeInLengths" style={successAlertLength}>&#10003;</p> }
                 { errs.stockLength? <span className="fadeInErrors" style={errorAlert}> { errs.stockLength.message }</span> : null }
             </div>
+
+{/* TOOK AWAY ALL defaultChecked="true" */}
+
             <div>
                 <label>Peg Leg</label>
-                <input style={inputTextPadding} type="checkbox" name="buildComplete" defaultChecked="true" onChange={(event) => setBuildComplete( buildComplete )}></input>
+                <input style={inputTextPadding} type="checkbox" name="buildComplete" checked={buildComplete} onChange={(event) => setBuildComplete( !buildComplete )}/>
                 { errs.buildComplete? <span style={errorAlert}> { errs.buildComplete.message }</span> : null }
             </div>
             <div>
                 <label>Eye Patch</label>
-                <input style={inputTextPadding} type="checkbox" name="eyePatch" defaultChecked="true" onChange={(event) => setEyePatch( eyePatch )}></input>
+                <input style={inputTextPadding} type="checkbox" name="eyePatch" checked={eyePatch} onChange={(event) => setEyePatch( !eyePatch )}/>
                 { errs.eyePatch? <span style={errorAlert}> { errs.eyePatch.message }</span> : null }
             </div>
             <div>
                 <label>Hook Hand</label>
-                <input style={inputTextPadding} type="checkbox" name="buildComplete" defaultChecked="true" onChange={(event) => setHookHand( hookHand )}></input>
+                <input style={inputTextPadding} type="checkbox" name="hookHand" checked={hookHand} onChange={(event) => setHookHand( !hookHand )}/>
                 { errs.hookHand? <span style={errorAlert}> { errs.hookHand.message }</span> : null }
             </div>
             <div>

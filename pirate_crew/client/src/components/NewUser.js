@@ -263,7 +263,7 @@ const successAlertLength =
 
 return (
     <div>
-        <h2 style={titleHeader}>Create New Account</h2>
+        <h2 style={titleHeader}>Yar! Here Be Where Ye Creatn' Thee New Pirate Crew Account</h2>
         <form style={skiffContainer} onSubmit = {submitForm}>
             <div>
                 <label>First Name</label>

@@ -192,7 +192,7 @@ const AllSkiffs = (props) => {
                     <p key></p>
                     <p>{`Catch Phrase: ${skiff.builderName}`}</p>
                     <p>{`Annual Wage: ${formatCurrency(skiff.stockLength)}`}</p>
-                    <p>{`Treasure Chests Found: ${skiff.customLength}'`}</p>
+                    <p>{`Treasure Chests Found: ${skiff.customLength}`}</p>
                     <p>{`Description: ${skiff.description}`}</p>
                     <p id="smallFont">{`Crew Member Since: ${skiff.createdAt.substring(5,10)}-${skiff.createdAt.substring(0,4)}`}</p>
                     <button style={buttonStyle} onClick={() => navigate(`/skiff/${skiff._id}`)}>Pirate Details</button>
