@@ -20,18 +20,13 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter your email address."],
         validate:{
-            validator: (val) => /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/.test(val),     //// DID I DO THIS RIGHT CHECK IT
-                            //  (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(myForm.emailAddr.value))
-                            //  /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/.test(val)
-                            // MY OLD, NEEDS TO BE FIXED (/^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+(?:\.[a-zA-Z]+)? $/.test(val))
+            validator: (val) => /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/.test(val),     
             message: "Please enter a valid email address.",
         },
         unique: true,
         // minLength: [5, "Please enter a valid email address."],
     }, 
 
-
-    // INCLUDE THE FRONT END PRETTY (strong, weak etc)
     password: {    
         type: String,
         required: [true, "You must make a password to keep your account secure."],
@@ -58,30 +53,18 @@ const UserSchema = new mongoose.Schema({
         minLength: [1, "Please enter your full street name."],
     }, 
 
-    //TRY WITH SEPARATION?? try the top first
-    // streetAddress: {   
-    //     type: String,
-    //     required: [true, "Please enter your street address."],
-    //     minLength: [6, "Please enter your full street address, include the street number and name."],
-    // }, 
-    
-    // THIS CAN BE CUSTOMIZED LATER TO SPECIFICALLY NUMBERS or LETTERS set TYPE
-    // can be set in description or under type / string / number etc
     unit: {    
         type: String,
         required: [true, "Please enter your unique HOA unit."],
         minLength: [1, "Your unit must be at least one character."],
     },
 
-    // MAKE ENUM?????
-    // SET TO AUTO FILL
     state: {    
         type: String,
         required: [true, "Please enter your state."],
         minLength: [2, "You must enter your state name or two character abbreviation."],
     }, //SEPARATE BY COMMAS
 
-    // SET TO AUTO FILL
     zipCode: {    
         type: Number,
         required: [true, "Please enter your zip code."],
@@ -101,20 +84,16 @@ const UserSchema = new mongoose.Schema({
         max: [30, "The maximum number of vehicles is 30 per owner."],
     },
 
-    // SETUP NPM
     pictureUrl: {
         type: String,
     }, 
 
-    // Any additional details you would like to share?
-    description: {    //CHANGE THIS TO OWNER FIRST NAME AND LAST NAME LATER
+    description: {    
         type: String,
     }, 
 
 }, { timestamps: true });
 
-// THIS IS FOR SETTING UP THE CONFIRM PASSWORD
-// FIRST is the virtual field that can be compared and validated
 UserSchema.virtual("confirmPassword")
     .get(() => this._confirmPassword)
     .set(value => (this._confirmPassword = value ));
@@ -124,7 +103,7 @@ UserSchema.pre("validate",function(next){
     {this.invalidate("confirmPassword","Your passwords must match.");}
     next();
 });
-// BCRYPT FOR PASSWORD PROTECTION this saves it!
+// BCRYPT FOR PASSWORD PROTECTION
 UserSchema.pre("save", function(next){
     bcrypt.hash(this.password, 10)
     .then(hash => {
@@ -133,6 +112,5 @@ UserSchema.pre("save", function(next){
     });
 });
 
-// REMEMBER THIS BECOMES "users" ot becomes plural and a lower case string automatically
 const User = mongoose.model("User", UserSchema);
 module.exports = User;

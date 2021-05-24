@@ -15,11 +15,6 @@ module.exports = {
 
     create: (req,res) => {
         console.log(req.body);
-        // parseFloat(stockLength).toFixed(2).match(regex)
-        // (req.body.stockLength = parseFloat(stockLength).toFixed(2) += 0.00)
-        // (req.body.stockLength = parseFloat(stockLength).toFixed(2))
-        // req.body.stockLength = parseFloat(stockLength).toFixed(2)
-        // req.body.stockLength = parseFloat(stockLength).toFixed(2)
         TolmanSkiff.create(req.body)
             .then((newSkiff) => {
                 console.log(newSkiff);
