@@ -9,6 +9,7 @@ const TolmanSkiffSchema = new mongoose.Schema({
     }, 
 
     builderName: {    
+        type: String,
         required: [true, "Please enter a builder name."], 
         minLength: [3, "Your builder name must be at least 3 characters long."],
     }, 
@@ -16,7 +17,7 @@ const TolmanSkiffSchema = new mongoose.Schema({
     modelName: {    
         type: String,
         required: [true, "ARG! Please select ye role in the crew."], 
-        enum: ['Crew Mate', 'Cook', 'Deckhand', 'Doctor', 'Navigator', 'First Mate', 'Captain'],  // Dont need "Please make a selection."  Seabright Trawler
+        enum: ['Crew Mate', 'Cook', 'Deckhand', 'Doctor', 'Navigator', 'First Mate', 'Captain'],
     },
     
     //No later than today
@@ -63,4 +64,5 @@ const TolmanSkiffSchema = new mongoose.Schema({
 
 }, { timestamps: true })
 
+//set as Pirate
 module.exports = mongoose.model("Skiff", TolmanSkiffSchema);   

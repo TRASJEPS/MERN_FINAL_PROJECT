@@ -266,12 +266,16 @@ return (
                 { errs.builderName? <span className="fadeInErrors" style={errorAlert}> { errs.builderName.message }</span> : null }
             </div>
             <div>
+            {/* 'Crew Mate', 'Cook', 'Deckhand', 'Doctor', 'Navigator', 'First Mate', 'Captain' */}
                 <label>Select Model Type</label>
                 <select style={inputTextPadding} type="text" name="modelName" onBlur={(event) => setModelName(event.target.value)}>
-                    <option value="Standard">Standard</option>
-                    <option value="Wide Body">Wide Body</option>
-                    <option value="Jumbo">Jumbo</option>
-                    <option value="Flat Bottom">Flat Bottom</option>
+                    <option value="Crew Mate">Standard</option>
+                    <option value="Cook">Wide Body</option>
+                    <option value="Deckhand">Jumbo</option>
+                    <option value="Doctor">Flat Bottom</option>
+                    <option value="Navigator">Flat Bottom</option>
+                    <option value="First Mate">Flat Bottom</option>
+                    <option value="Captain">Flat Bottom</option>
                 </select>
                 { errs.modelName? <span className="fadeInErrors" style={errorAlert}> { errs.modelName.message }</span> : null }
             </div>
