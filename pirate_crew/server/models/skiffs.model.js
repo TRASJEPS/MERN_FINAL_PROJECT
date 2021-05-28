@@ -54,19 +54,19 @@ const TolmanSkiffSchema = new mongoose.Schema({
     buildComplete: {
         type: Boolean,
         required: true,
-        // default: true,
+        
     },
 
     eyePatch: {
         type: Boolean,
         required: true,
-        // default: true,
+        
     },
 
     hookHand: {
         type: Boolean,
         required: true,
-        // default: true,
+        
     },
    
     description: {    

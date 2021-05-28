@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { link, navigate } from '@reach/router';
-import { formatValue } from 'react-currency-input-field';
+// import { formatValue } from 'react-currency-input-field';
 import { formatCurrency } from '../utilities/CurrencyFormatter';  
 
 const AllSkiffs = (props) => {
@@ -185,11 +185,10 @@ const AllSkiffs = (props) => {
         <p>{props.alert}</p>
 
             {allSkiffs.map((skiff, index) => (
-                <div style={skiffContainer}> 
+                <div style={skiffContainer} key={index}> 
                     <h4 style={mainNameContainer}>{skiff.ownerName}</h4>
                     <br></br>
-                    <img style={picPreviewSizer} src={skiff.pictureUrl}/>
-                    <p key></p>
+                    <img style={picPreviewSizer} src={skiff.pictureUrl} alt="myImage"/>
                     <p>{`Catch Phrase: ${skiff.builderName}`}</p>
                     <p>{`Annual Wage: ${formatCurrency(skiff.stockLength)}`}</p>
                     <p>{`Treasure Chests Found: ${skiff.customLength}`}</p>
@@ -200,7 +199,6 @@ const AllSkiffs = (props) => {
                     <button style={walkThePlank} onClick={() => deleteSkiff(skiff)}>Walk The Plank!</button>
                 </div>
             ))}
-        {/* </div> */}
     </div>
     )
 }

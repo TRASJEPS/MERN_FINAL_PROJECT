@@ -8,29 +8,25 @@ import OneSkiff from './components/OneSkiff';
 import FrontPage from './components/FrontPage';
 import NewUser from './components/NewUser';
 
-function App() {
-
 const NotFound = () => {
-    return (
-      <div>
-        AVAST!  ERROR ROUTE NOT FOUND.  CHECK YOUR URL ENTRY.
-      </div>
-    )
-  };
+  return (
+    <div>
+      AVAST!  ERROR ROUTE NOT FOUND.  CHECK YOUR URL ENTRY.
+    </div>
+  )
+};
+
+function App() {
 
   // SETTING UP FOR THE USE STATE  ** 1 **
   // SHOULD THIS BE AN ARRAY? check later
 
-  
  const [ alert, setAlert ] = useState("");
 
  //  FROM THE NewUser path THIS MAKES THE SET ALERT PROP AND PASSES IT IN  PROPPPSSSS ** 2 ** 
  //  FROM THE AllSkiffs THIS IS THE ** 3 ** REFERENCEING THIS VARIABLE PASSED AS A PROP allowing the component access
 
- 
-
-  return (
-    // FRONT END PATHING!! USE THIS ON PORT 3000
+  // FRONT END PATHING!! USE THIS ON PORT 3000
     //  NEVER EVER EVER EVER PUT A COMMENT AFTER A ROUTER PATH <>
 
 
@@ -44,11 +40,11 @@ const NotFound = () => {
 
     //  KILL THE alert system that is added on, SWITCH OVER TO THE CONTEXT
 
+  return (
+   
+
     <div className="App">
       
-      {/* <GlobalHeader /> */}
-
-
       <Router>
 
         <AllSkiffs path="/" alert = {alert} />  
