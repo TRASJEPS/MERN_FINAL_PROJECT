@@ -173,7 +173,6 @@ const AllSkiffs = (props) => {
 
     return( 
     <div>
-       
         <div style={titleHeader}>
             <h1 style={titleAligner}>All Pirate Crew Mates</h1>
             <div style={addNewHeader}>
@@ -181,14 +180,12 @@ const AllSkiffs = (props) => {
                 <button style={largeButtonStyle} onClick={() => navigate(`/skiff/new`)}>Add New Crew Member</button>
             </div>
         </div>
-
         <p>{props.alert}</p>
-
             {allSkiffs.map((skiff, index) => (
                 <div style={skiffContainer} key={index}> 
                     <h4 style={mainNameContainer}>{skiff.ownerName}</h4>
                     <br></br>
-                    <img style={picPreviewSizer} src={skiff.pictureUrl} alt="myImage"/>
+                    <img style={picPreviewSizer} src={skiff.pictureUrl} alt="PIRATE"/>
                     <p>{`Catch Phrase: ${skiff.builderName}`}</p>
                     <p>{`Annual Wage: ${formatCurrency(skiff.stockLength)}`}</p>
                     <p>{`Treasure Chests Found: ${skiff.customLength}`}</p>
